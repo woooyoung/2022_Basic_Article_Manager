@@ -13,6 +13,12 @@ public class ArticleController extends Controller {
 	private String cmd;
 	private String actionMethodName;
 
+	public ArticleController(Scanner sc) {
+		this.sc = sc;
+
+		articles = new ArrayList<>();
+	}
+
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
 		this.actionMethodName = actionMethodName;
@@ -33,15 +39,13 @@ public class ArticleController extends Controller {
 		case "delete":
 			doDelete();
 			break;
+		default:
+			System.out.println("존재하지 않는 명령어입니다");
+			break;
 		}
 	}
 
-	public ArticleController(Scanner sc, List<Article> articles) {
-		this.sc = sc;
-		this.articles = articles;
-	}
-
-	public void doWrite() {
+	private void doWrite() {
 		int id = articles.size() + 1;
 		String regDate = Util.getNowDateStr();
 		System.out.printf("제목 : ");
@@ -56,7 +60,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void showList() {
+	private void showList() {
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다");
 			return;
@@ -92,7 +96,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void showDetail() {
+	private void showDetail() {
 		String[] cmdBits = cmd.split(" ");
 
 		if (cmdBits.length == 2) {
@@ -119,7 +123,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void doModify() {
+	private void doModify() {
 		String[] cmdBits = cmd.split(" ");
 
 		if (cmdBits.length == 2) {
@@ -147,7 +151,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void doDelete() {
+	private void doDelete() {
 		String[] cmdBits = cmd.split(" ");
 
 		if (cmdBits.length == 2) {
@@ -189,6 +193,14 @@ public class ArticleController extends Controller {
 		}
 
 		return null;
+	}
+
+	public void makeTestData() {
+		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
+
+		articles.add(new Article(1, Util.getNowDateStr(), "제목1", "내용1", 11));
+		articles.add(new Article(2, Util.getNowDateStr(), "제목2", "내용2", 22));
+		articles.add(new Article(3, Util.getNowDateStr(), "제목3", "내용3", 33));
 	}
 
 }
