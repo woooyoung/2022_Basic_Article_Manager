@@ -35,15 +35,15 @@ public class App {
 				break;
 			}
 
-			String[] cmdBits = cmd.split(" "); // article detail
+			String[] cmdBits = cmd.split(" ");
 
 			if (cmdBits.length == 1) {
 				System.out.println("명령어를 확인해주세요");
 				continue;
 			}
 
-			String controllerName = cmdBits[0]; // article
-			String actionMethodName = cmdBits[1]; // detail
+			String controllerName = cmdBits[0];
+			String actionMethodName = cmdBits[1];
 
 			Controller controller = null;
 
@@ -54,6 +54,31 @@ public class App {
 			} else {
 				System.out.println("존재하지 않는 명령어입니다.");
 				continue;
+			}
+
+			String actionName = controllerName + "/" + actionMethodName;
+
+			switch (actionName) {
+			case "article/write":
+			case "article/delete":
+			case "article/modify":
+			case "member/logout":
+			case "member/profile":
+				if (Controller.isLogined() == false) {
+					System.out.println("로그인 후 이용해주세요");
+					continue;
+				}
+				break;
+			}
+
+			switch (actionName) {
+			case "member/login":
+			case "member/join":
+				if (Controller.isLogined()) {
+					System.out.println("로그아웃 후 이용해주세요");
+					continue;
+				}
+				break;
 			}
 
 			controller.doAction(cmd, actionMethodName);
