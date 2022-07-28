@@ -23,9 +23,7 @@ public class ArticleService {
 
 	public int setNewId() {
 
-		int id = articleDao.setNewId();
-
-		return id;
+		return articleDao.setNewId();
 	}
 
 	public void add(Article article) {
