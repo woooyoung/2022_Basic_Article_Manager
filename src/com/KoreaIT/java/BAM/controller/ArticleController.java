@@ -81,7 +81,7 @@ public class ArticleController extends Controller {
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
 
-			String writerName = memberService.getMemberNameById(article.id);
+			String writerName = memberService.getMemberNameById(article.memberId);
 
 			System.out.printf("%7d | %6s   | %5s  |   %7s  | %5d\n", article.id, article.title, article.regDate,
 					writerName, article.hit);
